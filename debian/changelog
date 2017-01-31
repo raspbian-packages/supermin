@@ -1,9 +1,29 @@
-supermin (5.1.17-4+rpi1) stretch-staging; urgency=medium
+supermin (5.1.17-7+rpi1) stretch-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
 
- -- Raspbian forward porter <root@raspbian.org>  Sun, 20 Nov 2016 17:01:01 +0000
+ -- Peter Michael Green <plugwash@raspbian.org>  Tue, 31 Jan 2017 10:42:04 +0000
+
+supermin (5.1.17-7) unstable; urgency=medium
+
+  * Introduce alternative kernel build-dependency (Closes: #851970)
+
+ -- Hilko Bengen <bengen@debian.org>  Sun, 22 Jan 2017 15:39:12 +0100
+
+supermin (5.1.17-6) unstable; urgency=medium
+
+  * Fix build dependency for determining Built-Using (Closes: #850974)
+  
+ -- Hilko Bengen <bengen@debian.org>  Wed, 11 Jan 2017 19:53:12 +0100
+
+supermin (5.1.17-5) unstable; urgency=medium
+
+  * Remove links from febootstrap package (Closes: #850635)
+  * Remove old NEWS, TODO items from debian/
+  * Tweak Built-Using in an attempt to fix FTBFS on alpha
+
+ -- Hilko Bengen <bengen@debian.org>  Mon, 09 Jan 2017 23:44:14 +0100
 
 supermin (5.1.17-4) unstable; urgency=medium
 
