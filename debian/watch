@@ -1,0 +1,2 @@
+version=3
+http://libguestfs.org/download/supermin/ supermin-([\d\.]+)\.tar\.gz
