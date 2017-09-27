@@ -8,8 +8,6 @@ override_dh_auto_configure:
 	dh_auto_configure -- --disable-network-tests $(cfgflags)
 
 override_dh_auto_build:
-	chmod a+x src/bin2s.pl
-
 	# Use musl-gcc where available. Otherwise work around #843714: GCC
 	# cannot build static binaries using the pie-specific spec files added
 	# by dpkg on (at least) powerpc, ppc64, sh4, sparc64.
@@ -28,7 +26,4 @@ override_dh_gencontrol:
 	dh_gencontrol -- -Vmisc:Built-Using="$(shell dpkg-query -f '$${source:Package} (= $${source:Version}), ' -W $(if $(shell which musl-gcc),musl-tools,libc-dev-bin))"
 
 %:
-	dh $@ --with=ocaml,autoreconf
-
-override_dh_autoreconf:
-	AUTOMAKE='automake --foreign --add-missing' dh_autoreconf
+	dh $@ --with=ocaml

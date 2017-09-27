@@ -3,8 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>
 Uploaders: Hilko Bengen <bengen@debian.org>
-Build-Depends: debhelper (>= 9),
- dh-autoreconf,
+Build-Depends: debhelper (>= 10),
  libc-dev-bin,
  gawk, pkg-config,
  apt,
@@ -13,7 +12,7 @@ Build-Depends: debhelper (>= 9),
  comerr-dev, e2fslibs-dev,
  cpio,
  musl-tools [amd64 arm64 armel armhf i386],
- augeas-tools, libhivex-bin, 
+ augeas-tools, libhivex-bin,
  linux-image-alpha-generic [alpha],
  linux-image-marvell [armel] | linux-image-versatile [armel],
  linux-image-rpi [armhf],
@@ -27,10 +26,10 @@ Build-Depends: debhelper (>= 9),
  linux-image-powerpc64le [ppc64el],
  linux-image-sparc64 [sparc sparc64],
  linux-image-amd64 [amd64],
- linux-image-586 [i386] | linux-image-486 [i386] | linux-image-686-pae [i386],
-Standards-Version: 3.9.6
+ linux-image-686-pae [i386] | linux-image-586 [i386] | linux-image-486 [i386],
+Standards-Version: 4.0.0
 Homepage: http://people.redhat.com/~rjones/supermin/
-Vcs-Git: git://anonscm.debian.org/pkg-libvirt/supermin.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-libvirt/supermin.git
 Vcs-Browser: http://anonscm.debian.org/?p=pkg-libvirt/supermin.git
 
 Package: supermin
@@ -44,11 +43,3 @@ Description: tool for building supermin appliances.
  images, usually around 100KB in size, which get fully instantiated
  on-the-fly in a fraction of a second to a filesystem image when they
  are booted.
-
-Package: febootstrap
-Architecture: all
-Section: oldlibs
-Priority: extra
-Depends: supermin (>= ${source:Version}), ${misc:Depends}
-Description: transitional package to deal with package renames.
- The febootstrap tool was renamed to supermin.

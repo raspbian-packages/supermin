@@ -1,5 +1,5 @@
 dnl supermin configure.ac
-dnl (C) Copyright 2009-2016 Red Hat Inc.
+dnl (C) Copyright 2009-2017 Red Hat Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ dnl Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 dnl
 dnl Written by Richard W.M. Jones <rjones@redhat.com>
 
-AC_INIT([supermin],[5.1.17])
+AC_INIT([supermin],[5.1.19])
 AM_INIT_AUTOMAKE(foreign)
 AC_REQUIRE_AUX_FILE([supermin-test-driver])
 
@@ -41,6 +41,9 @@ AC_SYS_LARGEFILE
 
 dnl Enable GNU stuff.
 AC_USE_SYSTEM_EXTENSIONS
+
+dnl Which header file defines major, minor, makedev.
+AC_HEADER_MAJOR
 
 dnl Define the host CPU architecture (defines host_cpu).
 AC_CANONICAL_HOST
@@ -90,7 +93,7 @@ AC_CHECK_PROG(PERLDOC,[perldoc],[perldoc],[no])
 if test "x$PERLDOC" = "xno" ; then
   AC_MSG_WARN([perldoc not found - install perl to make man pages])
 fi
-AM_CONDITIONAL(HAVE_PERLDOC,[test "$perldoc" != "no"])
+AM_CONDITIONAL(HAVE_PERLDOC,[test "x$PERLDOC" != "xno"])
 
 dnl For yum-rpm handler.
 AC_PATH_PROG(RPM,[rpm],[no])

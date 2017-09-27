@@ -124,17 +124,19 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/fcntl-o.m4 $(top_srcdir)/m4/fcntl-safer.m4 \
 	$(top_srcdir)/m4/fcntl.m4 $(top_srcdir)/m4/fcntl_h.m4 \
 	$(top_srcdir)/m4/fdopendir.m4 $(top_srcdir)/m4/filenamecat.m4 \
-	$(top_srcdir)/m4/fstat.m4 $(top_srcdir)/m4/fts.m4 \
-	$(top_srcdir)/m4/getcwd.m4 $(top_srcdir)/m4/getdtablesize.m4 \
+	$(top_srcdir)/m4/flexmember.m4 $(top_srcdir)/m4/fstat.m4 \
+	$(top_srcdir)/m4/fts.m4 $(top_srcdir)/m4/getcwd.m4 \
+	$(top_srcdir)/m4/getdtablesize.m4 \
+	$(top_srcdir)/m4/getprogname.m4 \
 	$(top_srcdir)/m4/gettimeofday.m4 \
 	$(top_srcdir)/m4/gnulib-common.m4 \
 	$(top_srcdir)/m4/gnulib-comp.m4 $(top_srcdir)/m4/i-ring.m4 \
 	$(top_srcdir)/m4/include_next.m4 $(top_srcdir)/m4/largefile.m4 \
-	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/lstat.m4 \
-	$(top_srcdir)/m4/malloc.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/mempcpy.m4 $(top_srcdir)/m4/memrchr.m4 \
-	$(top_srcdir)/m4/mmap-anon.m4 $(top_srcdir)/m4/mode_t.m4 \
-	$(top_srcdir)/m4/msvc-inval.m4 \
+	$(top_srcdir)/m4/limits-h.m4 $(top_srcdir)/m4/longlong.m4 \
+	$(top_srcdir)/m4/lstat.m4 $(top_srcdir)/m4/malloc.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/mempcpy.m4 \
+	$(top_srcdir)/m4/memrchr.m4 $(top_srcdir)/m4/mmap-anon.m4 \
+	$(top_srcdir)/m4/mode_t.m4 $(top_srcdir)/m4/msvc-inval.m4 \
 	$(top_srcdir)/m4/msvc-nothrow.m4 $(top_srcdir)/m4/multiarch.m4 \
 	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/off_t.m4 \
 	$(top_srcdir)/m4/onceonly.m4 $(top_srcdir)/m4/open.m4 \
@@ -142,16 +144,16 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/readdir.m4 \
 	$(top_srcdir)/m4/realloc.m4 $(top_srcdir)/m4/save-cwd.m4 \
 	$(top_srcdir)/m4/ssize_t.m4 $(top_srcdir)/m4/stat.m4 \
-	$(top_srcdir)/m4/stdbool.m4 $(top_srcdir)/m4/stddef_h.m4 \
-	$(top_srcdir)/m4/stdint.m4 $(top_srcdir)/m4/stdio_h.m4 \
-	$(top_srcdir)/m4/stdlib_h.m4 $(top_srcdir)/m4/strdup.m4 \
-	$(top_srcdir)/m4/strerror.m4 $(top_srcdir)/m4/string_h.m4 \
-	$(top_srcdir)/m4/sys_socket_h.m4 \
+	$(top_srcdir)/m4/stdalign.m4 $(top_srcdir)/m4/stdbool.m4 \
+	$(top_srcdir)/m4/stddef_h.m4 $(top_srcdir)/m4/stdint.m4 \
+	$(top_srcdir)/m4/stdio_h.m4 $(top_srcdir)/m4/stdlib_h.m4 \
+	$(top_srcdir)/m4/strdup.m4 $(top_srcdir)/m4/strerror.m4 \
+	$(top_srcdir)/m4/string_h.m4 $(top_srcdir)/m4/sys_socket_h.m4 \
 	$(top_srcdir)/m4/sys_stat_h.m4 $(top_srcdir)/m4/sys_time_h.m4 \
 	$(top_srcdir)/m4/sys_types_h.m4 $(top_srcdir)/m4/time_h.m4 \
 	$(top_srcdir)/m4/unistd-safer.m4 $(top_srcdir)/m4/unistd_h.m4 \
 	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/wchar_t.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/wint_t.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
@@ -162,11 +164,12 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__objects_1 = supermin-ext2fs-c.$(OBJEXT) \
-	supermin-ext2init-c.$(OBJEXT) supermin-fnmatch-c.$(OBJEXT) \
-	supermin-glob-c.$(OBJEXT) supermin-librpm-c.$(OBJEXT) \
-	supermin-realpath-c.$(OBJEXT)
+	supermin-format-ext2-init-c.$(OBJEXT) \
+	supermin-fnmatch-c.$(OBJEXT) supermin-glob-c.$(OBJEXT) \
+	supermin-librpm-c.$(OBJEXT) supermin-realpath-c.$(OBJEXT)
 am_supermin_OBJECTS = $(am__objects_1)
-supermin_OBJECTS = $(am_supermin_OBJECTS)
+nodist_supermin_OBJECTS =
+supermin_OBJECTS = $(am_supermin_OBJECTS) $(nodist_supermin_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -417,6 +420,7 @@ GNULIB_OBSTACK_PRINTF_POSIX = @GNULIB_OBSTACK_PRINTF_POSIX@
 GNULIB_OPEN = @GNULIB_OPEN@
 GNULIB_OPENAT = @GNULIB_OPENAT@
 GNULIB_OPENDIR = @GNULIB_OPENDIR@
+GNULIB_OVERRIDES_WINT_T = @GNULIB_OVERRIDES_WINT_T@
 GNULIB_PCLOSE = @GNULIB_PCLOSE@
 GNULIB_PERROR = @GNULIB_PERROR@
 GNULIB_PIPE = @GNULIB_PIPE@
@@ -433,6 +437,7 @@ GNULIB_PUTCHAR = @GNULIB_PUTCHAR@
 GNULIB_PUTENV = @GNULIB_PUTENV@
 GNULIB_PUTS = @GNULIB_PUTS@
 GNULIB_PWRITE = @GNULIB_PWRITE@
+GNULIB_QSORT_R = @GNULIB_QSORT_R@
 GNULIB_RANDOM = @GNULIB_RANDOM@
 GNULIB_RANDOM_R = @GNULIB_RANDOM_R@
 GNULIB_RAWMEMCHR = @GNULIB_RAWMEMCHR@
@@ -484,6 +489,7 @@ GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
 GNULIB_SYSTEM_POSIX = @GNULIB_SYSTEM_POSIX@
 GNULIB_TIMEGM = @GNULIB_TIMEGM@
 GNULIB_TIME_R = @GNULIB_TIME_R@
+GNULIB_TIME_RZ = @GNULIB_TIME_RZ@
 GNULIB_TMPFILE = @GNULIB_TMPFILE@
 GNULIB_TTYNAME_R = @GNULIB_TTYNAME_R@
 GNULIB_UNISTD_H_NONBLOCKING = @GNULIB_UNISTD_H_NONBLOCKING@
@@ -510,6 +516,7 @@ GNULIB__EXIT = @GNULIB__EXIT@
 GREP = @GREP@
 HAVE_ALPHASORT = @HAVE_ALPHASORT@
 HAVE_ATOLL = @HAVE_ATOLL@
+HAVE_C99_STDINT_H = @HAVE_C99_STDINT_H@
 HAVE_CANONICALIZE_FILE_NAME = @HAVE_CANONICALIZE_FILE_NAME@
 HAVE_CHOWN = @HAVE_CHOWN@
 HAVE_CLOSEDIR = @HAVE_CLOSEDIR@
@@ -525,6 +532,7 @@ HAVE_DECL_GETDELIM = @HAVE_DECL_GETDELIM@
 HAVE_DECL_GETDOMAINNAME = @HAVE_DECL_GETDOMAINNAME@
 HAVE_DECL_GETLINE = @HAVE_DECL_GETLINE@
 HAVE_DECL_GETLOADAVG = @HAVE_DECL_GETLOADAVG@
+HAVE_DECL_GETLOGIN = @HAVE_DECL_GETLOGIN@
 HAVE_DECL_GETLOGIN_R = @HAVE_DECL_GETLOGIN_R@
 HAVE_DECL_GETPAGESIZE = @HAVE_DECL_GETPAGESIZE@
 HAVE_DECL_GETUSERSHELL = @HAVE_DECL_GETUSERSHELL@
@@ -580,6 +588,7 @@ HAVE_LINK = @HAVE_LINK@
 HAVE_LINKAT = @HAVE_LINKAT@
 HAVE_LONG_LONG_INT = @HAVE_LONG_LONG_INT@
 HAVE_LSTAT = @HAVE_LSTAT@
+HAVE_MAX_ALIGN_T = @HAVE_MAX_ALIGN_T@
 HAVE_MBSLEN = @HAVE_MBSLEN@
 HAVE_MEMCHR = @HAVE_MEMCHR@
 HAVE_MEMPCPY = @HAVE_MEMPCPY@
@@ -607,6 +616,7 @@ HAVE_PREAD = @HAVE_PREAD@
 HAVE_PTSNAME = @HAVE_PTSNAME@
 HAVE_PTSNAME_R = @HAVE_PTSNAME_R@
 HAVE_PWRITE = @HAVE_PWRITE@
+HAVE_QSORT_R = @HAVE_QSORT_R@
 HAVE_RANDOM = @HAVE_RANDOM@
 HAVE_RANDOM_H = @HAVE_RANDOM_H@
 HAVE_RANDOM_R = @HAVE_RANDOM_R@
@@ -649,6 +659,7 @@ HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TIMEGM = @HAVE_TIMEGM@
+HAVE_TIMEZONE_T = @HAVE_TIMEZONE_T@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
 HAVE_UNLOCKPT = @HAVE_UNLOCKPT@
@@ -677,6 +688,7 @@ LIBOBJS = @LIBOBJS@
 LIBRPM_CFLAGS = @LIBRPM_CFLAGS@
 LIBRPM_LIBS = @LIBRPM_LIBS@
 LIBS = @LIBS@
+LIMITS_H = @LIMITS_H@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
@@ -687,6 +699,7 @@ MKE2FS_T_OPTION = @MKE2FS_T_OPTION@
 NEXT_AS_FIRST_DIRECTIVE_DIRENT_H = @NEXT_AS_FIRST_DIRECTIVE_DIRENT_H@
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
+NEXT_AS_FIRST_DIRECTIVE_LIMITS_H = @NEXT_AS_FIRST_DIRECTIVE_LIMITS_H@
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = @NEXT_AS_FIRST_DIRECTIVE_STDDEF_H@
 NEXT_AS_FIRST_DIRECTIVE_STDINT_H = @NEXT_AS_FIRST_DIRECTIVE_STDINT_H@
 NEXT_AS_FIRST_DIRECTIVE_STDIO_H = @NEXT_AS_FIRST_DIRECTIVE_STDIO_H@
@@ -700,6 +713,7 @@ NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_DIRENT_H = @NEXT_DIRENT_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
+NEXT_LIMITS_H = @NEXT_LIMITS_H@
 NEXT_STDDEF_H = @NEXT_STDDEF_H@
 NEXT_STDINT_H = @NEXT_STDINT_H@
 NEXT_STDIO_H = @NEXT_STDIO_H@
@@ -813,9 +827,11 @@ REPLACE_PTSNAME = @REPLACE_PTSNAME@
 REPLACE_PTSNAME_R = @REPLACE_PTSNAME_R@
 REPLACE_PUTENV = @REPLACE_PUTENV@
 REPLACE_PWRITE = @REPLACE_PWRITE@
+REPLACE_QSORT_R = @REPLACE_QSORT_R@
 REPLACE_RANDOM_R = @REPLACE_RANDOM_R@
 REPLACE_READ = @REPLACE_READ@
 REPLACE_READLINK = @REPLACE_READLINK@
+REPLACE_READLINKAT = @REPLACE_READLINKAT@
 REPLACE_REALLOC = @REPLACE_REALLOC@
 REPLACE_REALPATH = @REPLACE_REALPATH@
 REPLACE_REMOVE = @REPLACE_REMOVE@
@@ -844,6 +860,7 @@ REPLACE_STRTOD = @REPLACE_STRTOD@
 REPLACE_STRTOK_R = @REPLACE_STRTOK_R@
 REPLACE_STRUCT_TIMEVAL = @REPLACE_STRUCT_TIMEVAL@
 REPLACE_SYMLINK = @REPLACE_SYMLINK@
+REPLACE_SYMLINKAT = @REPLACE_SYMLINKAT@
 REPLACE_TIMEGM = @REPLACE_TIMEGM@
 REPLACE_TMPFILE = @REPLACE_TMPFILE@
 REPLACE_TTYNAME_R = @REPLACE_TTYNAME_R@
@@ -867,6 +884,7 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SIG_ATOMIC_T_SUFFIX = @SIG_ATOMIC_T_SUFFIX@
 SIZE_T_SUFFIX = @SIZE_T_SUFFIX@
+STDALIGN_H = @STDALIGN_H@
 STDBOOL_H = @STDBOOL_H@
 STDDEF_H = @STDDEF_H@
 STDINT_H = @STDINT_H@
@@ -874,6 +892,7 @@ STRIP = @STRIP@
 SYS_TIME_H_DEFINES_STRUCT_TIMESPEC = @SYS_TIME_H_DEFINES_STRUCT_TIMESPEC@
 TIME_H_DEFINES_STRUCT_TIMESPEC = @TIME_H_DEFINES_STRUCT_TIMESPEC@
 UNDEFINE_STRTOK_R = @UNDEFINE_STRTOK_R@
+UNISTD_H_DEFINES_STRUCT_TIMESPEC = @UNISTD_H_DEFINES_STRUCT_TIMESPEC@
 UNISTD_H_HAVE_WINSOCK2_H = @UNISTD_H_HAVE_WINSOCK2_H@
 UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = @UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS@
 URPMI = @URPMI@
@@ -891,6 +910,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
@@ -944,7 +964,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = \
 	.depend \
-	bin2s.pl \
+	bin2c.pl \
 	config.ml.in \
 	supermin.1 \
 	supermin.pod \
@@ -956,9 +976,6 @@ SOURCES = \
 	ext2fs-c.c \
 	ext2fs.ml \
 	ext2fs.mli \
-	ext2init-c.c \
-	ext2init.ml \
-	ext2init.mli \
 	fnmatch-c.c \
 	fnmatch.ml \
 	fnmatch.mli \
@@ -979,22 +996,33 @@ SOURCES = \
 	os_release.mli \
 	package_handler.ml \
 	package_handler.mli \
-	rpm.ml \
-	dpkg.ml \
-	pacman.ml \
-	prepare.ml \
-	chroot.ml \
-	kernel.ml \
-	ext2_initrd.ml \
-	ext2.ml \
-	build.ml \
+	ph_rpm.ml \
+	ph_rpm.mli \
+	ph_dpkg.ml \
+	ph_dpkg.mli \
+	ph_pacman.ml \
+	ph_pacman.mli \
+	mode_prepare.ml \
+	mode_prepare.mli \
+	format_chroot.ml \
+	format_chroot.mli \
+	format-ext2-init-c.c \
+	format_ext2_init.ml \
+	format_ext2_init.mli \
+	format_ext2_initrd.ml \
+	format_ext2_initrd.mli \
+	format_ext2_kernel.ml \
+	format_ext2_kernel.mli \
+	format_ext2.ml \
+	format_ext2.mli \
+	mode_build.ml \
+	mode_build.mli \
 	supermin.ml
 
 
 # Can't use filter for this because of automake brokenness.
 SOURCES_ML = \
 	ext2fs.ml \
-	ext2init.ml \
 	fnmatch.ml \
 	glob.ml \
 	realpath.ml \
@@ -1004,30 +1032,32 @@ SOURCES_ML = \
 	types.ml \
 	os_release.ml \
 	package_handler.ml \
-	rpm.ml \
-	dpkg.ml \
-	pacman.ml \
-	prepare.ml \
-	chroot.ml \
-	kernel.ml \
-	ext2_initrd.ml \
-	ext2.ml \
-	build.ml \
+	ph_rpm.ml \
+	ph_dpkg.ml \
+	ph_pacman.ml \
+	mode_prepare.ml \
+	format_chroot.ml \
+	format_ext2_init.ml \
+	format_ext2_initrd.ml \
+	format_ext2_kernel.ml \
+	format_ext2.ml \
+	mode_build.ml \
 	supermin.ml
 
 SOURCES_C = \
 	ext2fs-c.c \
-	ext2init-c.c \
+	format-ext2-init-c.c \
 	fnmatch-c.c \
 	glob-c.c \
 	librpm-c.c \
 	realpath-c.c
 
-CLEANFILES = *~ *.cmi *.cmo *.cmx *.o supermin ext2init-bin.S
+CLEANFILES = *~ *.cmi *.cmo *.cmx *.o supermin format-ext2-init-bin.h
 man_MANS = \
 	supermin.1
 
 supermin_SOURCES = $(SOURCES_C)
+nodist_supermin_SOURCES = format-ext2-init-bin.h
 supermin_CFLAGS = \
 	-I$(shell $(OCAMLC) -where) \
 	$(EXT2FS_CFLAGS) $(COM_ERR_CFLAGS) $(LIBRPM_CFLAGS) \
@@ -1042,18 +1072,20 @@ OCAMLFLAGS = -warn-error CDEFLMPSUVXYZ-3 $(am__append_1)
 @HAVE_OCAMLOPT_TRUE@OBJECTS = $(XOBJECTS)
 @HAVE_OCAMLOPT_FALSE@BEST = c
 @HAVE_OCAMLOPT_TRUE@BEST = opt
-supermin_DEPENDENCIES = $(OBJECTS) ext2init-bin.o
-supermin_LDADD = ext2init-bin.o ../lib/libgnu.a
+supermin_DEPENDENCIES = $(OBJECTS)
+supermin_LDADD = ../lib/libgnu.a
 supermin_LINK = \
 	./supermin-link.sh \
 	  $(OCAMLFIND) $(BEST) $(OCAMLFLAGS) $(OCAMLPACKAGES) \
 	  $(OBJECTS) -o $@
 
+BUILT_SOURCES = format-ext2-init-bin.h
 SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
 @HAVE_PERLDOC_TRUE@noinst_DATA = \
 @HAVE_PERLDOC_TRUE@	../html/supermin.1.html
 
-all: all-am
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .cmo .cmi .cmx .ml .mli .mll .mly .c .o .obj
@@ -1144,8 +1176,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-ext2fs-c.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-ext2init-c.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-fnmatch-c.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-format-ext2-init-c.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-glob-c.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-librpm-c.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supermin-realpath-c.Po@am__quote@
@@ -1178,19 +1210,19 @@ supermin-ext2fs-c.obj: ext2fs-c.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -c -o supermin-ext2fs-c.obj `if test -f 'ext2fs-c.c'; then $(CYGPATH_W) 'ext2fs-c.c'; else $(CYGPATH_W) '$(srcdir)/ext2fs-c.c'; fi`
 
-supermin-ext2init-c.o: ext2init-c.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -MT supermin-ext2init-c.o -MD -MP -MF $(DEPDIR)/supermin-ext2init-c.Tpo -c -o supermin-ext2init-c.o `test -f 'ext2init-c.c' || echo '$(srcdir)/'`ext2init-c.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/supermin-ext2init-c.Tpo $(DEPDIR)/supermin-ext2init-c.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='ext2init-c.c' object='supermin-ext2init-c.o' libtool=no @AMDEPBACKSLASH@
+supermin-format-ext2-init-c.o: format-ext2-init-c.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -MT supermin-format-ext2-init-c.o -MD -MP -MF $(DEPDIR)/supermin-format-ext2-init-c.Tpo -c -o supermin-format-ext2-init-c.o `test -f 'format-ext2-init-c.c' || echo '$(srcdir)/'`format-ext2-init-c.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/supermin-format-ext2-init-c.Tpo $(DEPDIR)/supermin-format-ext2-init-c.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='format-ext2-init-c.c' object='supermin-format-ext2-init-c.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -c -o supermin-ext2init-c.o `test -f 'ext2init-c.c' || echo '$(srcdir)/'`ext2init-c.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -c -o supermin-format-ext2-init-c.o `test -f 'format-ext2-init-c.c' || echo '$(srcdir)/'`format-ext2-init-c.c
 
-supermin-ext2init-c.obj: ext2init-c.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -MT supermin-ext2init-c.obj -MD -MP -MF $(DEPDIR)/supermin-ext2init-c.Tpo -c -o supermin-ext2init-c.obj `if test -f 'ext2init-c.c'; then $(CYGPATH_W) 'ext2init-c.c'; else $(CYGPATH_W) '$(srcdir)/ext2init-c.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/supermin-ext2init-c.Tpo $(DEPDIR)/supermin-ext2init-c.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='ext2init-c.c' object='supermin-ext2init-c.obj' libtool=no @AMDEPBACKSLASH@
+supermin-format-ext2-init-c.obj: format-ext2-init-c.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -MT supermin-format-ext2-init-c.obj -MD -MP -MF $(DEPDIR)/supermin-format-ext2-init-c.Tpo -c -o supermin-format-ext2-init-c.obj `if test -f 'format-ext2-init-c.c'; then $(CYGPATH_W) 'format-ext2-init-c.c'; else $(CYGPATH_W) '$(srcdir)/format-ext2-init-c.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/supermin-format-ext2-init-c.Tpo $(DEPDIR)/supermin-format-ext2-init-c.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='format-ext2-init-c.c' object='supermin-format-ext2-init-c.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -c -o supermin-ext2init-c.obj `if test -f 'ext2init-c.c'; then $(CYGPATH_W) 'ext2init-c.c'; else $(CYGPATH_W) '$(srcdir)/ext2init-c.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -c -o supermin-format-ext2-init-c.obj `if test -f 'format-ext2-init-c.c'; then $(CYGPATH_W) 'format-ext2-init-c.c'; else $(CYGPATH_W) '$(srcdir)/format-ext2-init-c.c'; fi`
 
 supermin-fnmatch-c.o: fnmatch-c.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(supermin_CFLAGS) $(CFLAGS) -MT supermin-fnmatch-c.o -MD -MP -MF $(DEPDIR)/supermin-fnmatch-c.Tpo -c -o supermin-fnmatch-c.o `test -f 'fnmatch-c.c' || echo '$(srcdir)/'`fnmatch-c.c
@@ -1374,13 +1406,15 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(PROGRAMS) $(MANS) $(DATA)
 installdirs:
 	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -1411,6 +1445,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
@@ -1482,7 +1517,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-man
 
 uninstall-man: uninstall-man1
 
-.MAKE: install-am install-strip
+.MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean \
 	clean-binPROGRAMS clean-generic cscopelist-am ctags ctags-am \
@@ -1500,6 +1535,7 @@ uninstall-man: uninstall-man1
 
 .PRECIOUS: Makefile
 
+format-ext2-init-c.$(OBJEXT): format-ext2-init-bin.h
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
@@ -1508,15 +1544,12 @@ uninstall-man: uninstall-man1
 .ml.cmx:
 	$(OCAMLFIND) ocamlopt $(OCAMLFLAGS) $(OCAMLPACKAGES) -c $< -o $@
 
-ext2init-bin.o: ext2init-bin.S
-	$(CC) -o $@ -c $<
-
-ext2init-bin.S: ../init/init $(srcdir)/bin2s.pl
+format-ext2-init-bin.h: ../init/init $(srcdir)/bin2c.pl
 	strip --strip-all $<
 	ls -l $<
 	@file $< | grep -isq static || \
 	  (echo "*** error: init is not statically linked"; exit 1)
-	$(srcdir)/bin2s.pl $< $@
+	$(srcdir)/bin2c.pl $< $@
 
 depend: .depend
 

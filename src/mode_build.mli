@@ -1,5 +1,5 @@
-/* supermin 5
- * Copyright (C) 2009-2014 Red Hat Inc.
+(* supermin 5
+ * Copyright (C) 2009-2016 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,32 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
+ *)
 
-#include <config.h>
+(** Implements the [--build] subcommand. *)
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-
-#include <caml/alloc.h>
-#include <caml/memory.h>
-
-/* The init binary.
- * See: bin2s.pl, init.c.
- */
-extern uint8_t _binary_init_start, _binary_init_end;
-
-value
-supermin_binary_init (value unitv)
-{
-  CAMLparam1 (unitv);
-  CAMLlocal1 (sv);
-  size_t n = &_binary_init_end - &_binary_init_start;
-
-  sv = caml_alloc_string (n);
-  memcpy (String_val (sv), &_binary_init_start, n);
-
-  CAMLreturn (sv);
-}
+val build : int -> (bool * Types.format * string * string option * string * bool * int64 option * bool) -> string list -> string -> unit
+(** [build debug (args...) inputs outputdir] performs the
+    [supermin --build] subcommand. *)
