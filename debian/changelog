@@ -1,9 +1,16 @@
-supermin (5.1.19-1+rpi1) buster-staging; urgency=medium
+supermin (5.1.19-2+rpi1) buster-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
 
- -- Raspbian forward porter <root@raspbian.org>  Wed, 27 Sep 2017 01:47:05 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Mon, 22 Jan 2018 03:17:11 +0000
+
+supermin (5.1.19-2) unstable; urgency=medium
+
+  * Add e2fsprogs to Build-Depends, Depends (Closes: #887182)
+  * Bump Standards-Version
+
+ -- Hilko Bengen <bengen@debian.org>  Mon, 15 Jan 2018 12:20:05 +0100
 
 supermin (5.1.19-1) unstable; urgency=medium
 
