@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+
+override_dh_auto_configure:
+	dh_auto_configure -- --disable-network-tests $(cfgflags)
+
+override_dh_auto_build:
+	# Use musl-gcc where available. Otherwise work around #843714: GCC
+	# cannot build static binaries using the pie-specific spec files added
+	# by dpkg on (at least) powerpc, ppc64, sh4, sparc64.
+	if which musl-gcc >/dev/null; then \
+		dh_auto_build -- -C init CC=musl-gcc ; \
+	else \
+		eval $$(DEB_BUILD_MAINT_OPTIONS=hardening=-pie dpkg-buildflags --export=sh | grep '^export LDFLAGS') ; \
+		dh_auto_build -- -C init LDFLAGS=$$(LDFLAGS) ; \
+	fi
+	dh_auto_build
+
+override_dh_auto_test:
+	#dh_auto_test -- SKIP_TEST_EXECSTACK=1
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vmisc:Built-Using="$(shell dpkg-query -f '$${source:Package} (= $${source:Version}), ' -W $(if $(shell which musl-gcc),musl-tools,libc-dev-bin))"
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -f src/.depend src/pod2htmd.tmp
+
+%:
+	dh $@ --with=ocaml
