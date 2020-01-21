@@ -27,6 +27,8 @@ Build-Depends: debhelper (>= 12),
  linux-image-sparc64 [sparc sparc64],
  linux-image-amd64 [amd64],
  linux-image-686-pae [i386] | linux-image-586 [i386] | linux-image-486 [i386],
+ linux-image-riscv64 [riscv64],
+ linux-image-itanium [ia64] | linux-image-mckinley [ia64],
 Standards-Version: 4.3.0
 Homepage: http://people.redhat.com/~rjones/supermin/
 Vcs-Git: https://salsa.debian.org/libvirt-team/supermin.git
@@ -51,6 +53,8 @@ Recommends:
  linux-image-sparc64 [sparc sparc64],
  linux-image-amd64 [amd64],
  linux-image-686-pae [i386] | linux-image-586 [i386] | linux-image-486 [i386],
+ linux-image-riscv64 [riscv64],
+ linux-image-itanium [ia64] | linux-image-mckinley [ia64],
 Breaks: libguestfs-tools (<< 1.25.38),
 Built-Using: ${misc:Built-Using}
 Description: tool for building supermin appliances.
