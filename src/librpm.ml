@@ -20,10 +20,11 @@ external rpm_is_available : unit -> bool = "supermin_rpm_is_available" "noalloc"
 
 external rpm_version : unit -> string = "supermin_rpm_version"
 external rpm_vercmp : string -> string -> int = "supermin_rpm_vercmp" "noalloc"
+external rpm_get_arch : unit -> string = "supermin_rpm_get_arch"
 
 type t
 
-exception Multiple_matches of int
+exception Multiple_matches of string * int
 
 external rpm_open : ?debug:int -> t = "supermin_rpm_open"
 external rpm_close : t -> unit = "supermin_rpm_close"
@@ -49,4 +50,4 @@ external rpm_pkg_whatprovides : t -> string -> string array = "supermin_rpm_pkg_
 external rpm_pkg_filelist : t -> string -> rpmfile_t array = "supermin_rpm_pkg_filelist"
 
 let () =
-  Callback.register_exception "librpm_multiple_matches" (Multiple_matches 0)
+  Callback.register_exception "librpm_multiple_matches" (Multiple_matches ("", 0))

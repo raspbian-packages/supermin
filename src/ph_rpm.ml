@@ -50,6 +50,12 @@ let mageia_detect () =
     (Os_release.get_id () = "mageia" ||
      try (stat "/etc/mageia-release").st_kind = S_REG with Unix_error _ -> false)
 
+let openmandriva_detect () =
+  Config.rpm <> "no" && Config.rpm2cpio <> "no" && rpm_is_available () &&
+    ((Config.urpmi <> "no" && Config.fakeroot <> "no") || Config.dnf <> "no") &&
+    (Os_release.get_id () = "openmandriva" ||
+     try (stat "/etc/openmandriva-release").st_kind = S_REG with Unix_error _ -> false)
+
 let ibm_powerkvm_detect () =
   Config.rpm <> "no" && Config.rpm2cpio <> "no" && rpm_is_available () &&
     Config.yumdownloader <> "no" &&
@@ -58,7 +64,7 @@ let ibm_powerkvm_detect () =
     with Unix_error _ -> false
 
 let settings = ref no_settings
-let rpm_major, rpm_minor = ref 0, ref 0
+let rpm_major, rpm_minor, rpm_arch = ref 0, ref 0, ref ""
 let zypper_major, zypper_minor, zypper_patch = ref 0, ref 0, ref 0
 let t = ref None
 
@@ -87,7 +93,11 @@ let rec rpm_init s =
   if !settings.debug >= 1 then
     printf "supermin: rpm: detected RPM version %d.%d\n" major minor;
 
-  t := Some (rpm_open ~debug:!settings.debug)
+  t := Some (rpm_open ~debug:!settings.debug);
+
+  rpm_arch := rpm_get_arch ();
+  if !settings.debug >= 1 then
+    printf "supermin: rpm: detected RPM architecture %s\n" !rpm_arch
 
 and opensuse_init s =
   rpm_init s;
@@ -130,21 +140,49 @@ let rpm_of_pkg, pkg_of_rpm = get_memo_functions ()
 (* Memo of rpm_package_of_string. *)
 let rpmh = Hashtbl.create 13
 
+let rpm_to_evr_string rpm =
+  (* In RPM < 4.11 query commands that use the epoch number in the
+   * package name did not work.
+   *
+   * For example:
+   * RHEL 6 (rpm 4.8.0):
+   *   $ rpm -q tar-2:1.23-11.el6.x86_64
+   *   package tar-2:1.23-11.el6.x86_64 is not installed
+   * Fedora 20 (rpm 4.11.2):
+   *   $ rpm -q tar-2:1.26-30.fc20.x86_64
+   *   tar-1.26-30.fc20.x86_64
+   *
+   *)
+  let is_rpm_lt_4_11 =
+    !rpm_major < 4 || (!rpm_major = 4 && !rpm_minor < 11) in
+
+  if is_rpm_lt_4_11 || rpm.epoch = 0 then
+    sprintf "%s-%s" rpm.version rpm.release
+  else
+    sprintf "%d:%s-%s"
+      rpm.epoch rpm.version rpm.release
+
 let rpm_package_of_string str =
   let query rpm =
     let rpms = Array.to_list (rpm_installed (get_rpm ()) rpm) in
+    let rpms = List.map (fun rpm -> (rpm, rpm_to_evr_string rpm)) rpms in
     (* RPM will return multiple hits when either multiple versions or
      * multiple arches are installed at the same time.  We are only
      * interested in the highest version with the best
      * architecture.
      *)
-    let cmp { version = v1; arch = a1 } { version = v2; arch = a2 } =
-      let i = rpm_vercmp v2 v1 in
+    let cmp (pkg1, evr1) (pkg2, evr2) =
+      let weight_of_arch = function
+        | "noarch" -> 100
+        | a when a = !rpm_arch -> 50
+        | _ -> 0
+      in
+      let i = compare (weight_of_arch pkg2.arch) (weight_of_arch pkg1.arch) in
       if i <> 0 then i
-      else compare_architecture a2 a1
+      else rpm_vercmp evr2 evr2
     in
     let rpms = List.sort cmp rpms in
-    List.hd rpms
+    fst (List.hd rpms)
   in
 
   try
@@ -386,17 +424,27 @@ and opensuse_download_all_packages pkgs dir =
 
   rpm_unpack tdir dir
 
+and openmandriva_download_all_packages pkgs dir =
+  let tdir = !settings.tmpdir // string_random8 () in
+
+  if Config.dnf <> "no" then
+    download_all_packages_with_dnf pkgs dir tdir
+  else (* Config.urpmi <> "no" && Config.fakeroot <> "no" *)
+    download_all_packages_with_urpmi pkgs dir tdir;
+
+  rpm_unpack tdir dir
+
 and mageia_download_all_packages pkgs dir =
   let tdir = !settings.tmpdir // string_random8 () in
 
   if Config.dnf <> "no" then
     download_all_packages_with_dnf pkgs dir tdir
   else (* Config.urpmi <> "no" && Config.fakeroot <> "no" *)
-    mageia_download_all_packages_with_urpmi pkgs dir tdir;
+    download_all_packages_with_urpmi pkgs dir tdir;
 
   rpm_unpack tdir dir
 
-and mageia_download_all_packages_with_urpmi pkgs dir tdir =
+and download_all_packages_with_urpmi pkgs dir tdir =
   let rpms = List.map rpm_package_name (PackageSet.elements pkgs) in
 
   let cmd =
@@ -484,4 +532,10 @@ let () =
     ph_detect = mageia_detect;
     ph_download_package = PHDownloadAllPackages mageia_download_all_packages;
   } in
-  register_package_handler "mageia" "rpm" mageia
+  register_package_handler "mageia" "rpm" mageia;
+  let openmandriva = {
+    fedora with
+    ph_detect = openmandriva_detect;
+    ph_download_package = PHDownloadAllPackages openmandriva_download_all_packages;
+  } in
+  register_package_handler "openmandriva" "rpm" openmandriva

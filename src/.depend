@@ -51,8 +51,8 @@
 ./realpath.cmi :
 ./realpath.cmo : ./realpath.cmi
 ./realpath.cmx : ./realpath.cmi
-./supermin.cmo : utils.cmi types.cmo package_handler.cmi mode_prepare.cmi mode_build.cmi config.cmo
-./supermin.cmx : utils.cmx types.cmx package_handler.cmx mode_prepare.cmx mode_build.cmx config.cmx
+./supermin.cmo : utils.cmi types.cmo package_handler.cmi mode_prepare.cmi mode_build.cmi librpm.cmi config.cmo
+./supermin.cmx : utils.cmx types.cmx package_handler.cmx mode_prepare.cmx mode_build.cmx librpm.cmx config.cmx
 ./types.cmo :
 ./types.cmx :
 ./utils.cmi :

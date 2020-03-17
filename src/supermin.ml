@@ -264,12 +264,10 @@ appliance automatically.
 
   (* Delete the old output directory if it exists. *)
   let old_outputdir =
-    try
-      let old_outputdir = outputdir ^ "." ^ string_random8 () in
-      rename outputdir old_outputdir;
-      Some old_outputdir
-    with
-      Unix_error _ -> None in
+    let old_outputdir = outputdir ^ "." ^ string_random8 () in
+    let cmd = sprintf "mv %s %s 2>/dev/null"
+                      (quote outputdir) (quote old_outputdir) in
+    if Sys.command cmd == 0 then Some old_outputdir else None in
 
   if debug >= 1 then
     printf "supermin: renaming %s to %s\n%!" new_outputdir outputdir;
@@ -298,6 +296,8 @@ let () =
     error "error: %s: %s: %s" fname (Unix.error_message code) param
   | Failure msg ->                      (* from failwith/failwithf *)
     error "failure: %s" msg
+  | Librpm.Multiple_matches (package, count) -> (* from librpm *)
+    error "RPM error: %d occurrences for %s" count package
   | Invalid_argument msg ->             (* probably should never happen *)
     error "internal error: invalid argument: %s" msg
   | Assert_failure (file, line, char) -> (* should never happen *)

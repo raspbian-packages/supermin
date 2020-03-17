@@ -170,6 +170,9 @@
 /* Define to 1 if you have the <bp-sym.h> header file. */
 #undef HAVE_BP_SYM_H
 
+/* caml_alloc_initialized_string found at compile time. */
+#undef HAVE_CAML_ALLOC_INITIALIZED_STRING
+
 /* Define to 1 if you have the `closedir' function. */
 #undef HAVE_CLOSEDIR
 

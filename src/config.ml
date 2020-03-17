@@ -18,7 +18,7 @@
  *)
 
 let package_name = "supermin"
-let package_version = "5.1.20"
+let package_version = "5.2.0"
 let host_cpu = "x86_64"
 
 let apt_get = "no"
@@ -36,7 +36,7 @@ let pacman_g2 = "no"
 let rpm = "/usr/bin/rpm"
 let rpm2cpio = "/usr/bin/rpm2cpio"
 let urpmi = "no"
-let yumdownloader = "no"
+let yumdownloader = "/usr/bin/yumdownloader"
 let xzcat = "/usr/bin/xzcat"
 let zcat = "/usr/bin/zcat"
 let zypper = "no"

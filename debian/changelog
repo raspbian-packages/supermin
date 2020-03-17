@@ -1,4 +1,4 @@
-supermin (5.1.20-2+rpi1) bullseye-staging; urgency=medium
+supermin (5.2.0-1+rpi1) bullseye-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
@@ -9,7 +9,14 @@ supermin (5.1.20-2+rpi1) bullseye-staging; urgency=medium
   * Disable testsuite.
   * Fix clean target.
 
- -- Raspbian forward porter <root@raspbian.org>  Tue, 21 Jan 2020 03:25:38 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Tue, 17 Mar 2020 06:47:56 +0000
+
+supermin (5.2.0-1) unstable; urgency=medium
+
+  * Update watch file
+  * New upstream version 5.2.0
+
+ -- Hilko Bengen <bengen@debian.org>  Tue, 10 Mar 2020 21:20:07 +0100
 
 supermin (5.1.20-2) unstable; urgency=medium
 
