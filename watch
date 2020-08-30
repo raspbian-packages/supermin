@@ -1,0 +1,2 @@
+version=4
+http://download.libguestfs.org/supermin/(\d.*)-stable/supermin-(\d.*)\.tar\.gz
