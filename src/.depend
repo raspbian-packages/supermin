@@ -1,0 +1,62 @@
+./config.cmo :
+./config.cmx :
+./ext2fs.cmi :
+./ext2fs.cmo : ./ext2fs.cmi
+./ext2fs.cmx : ./ext2fs.cmi
+./fnmatch.cmi :
+./fnmatch.cmo : ./fnmatch.cmi
+./fnmatch.cmx : ./fnmatch.cmi
+./format_chroot.cmi : package_handler.cmi
+./format_chroot.cmo : utils.cmi package_handler.cmi ./format_chroot.cmi
+./format_chroot.cmx : utils.cmx package_handler.cmx ./format_chroot.cmi
+./format_ext2.cmi : package_handler.cmi
+./format_ext2.cmo : utils.cmi package_handler.cmi ext2fs.cmi config.cmo ./format_ext2.cmi
+./format_ext2.cmx : utils.cmx package_handler.cmx ext2fs.cmx config.cmx ./format_ext2.cmi
+./format_ext2_init.cmi :
+./format_ext2_init.cmo : ./format_ext2_init.cmi
+./format_ext2_init.cmx : ./format_ext2_init.cmi
+./format_ext2_initrd.cmi :
+./format_ext2_initrd.cmo : utils.cmi format_ext2_init.cmi fnmatch.cmi ext2fs.cmi config.cmo ./format_ext2_initrd.cmi
+./format_ext2_initrd.cmx : utils.cmx format_ext2_init.cmx fnmatch.cmx ext2fs.cmx config.cmx ./format_ext2_initrd.cmi
+./format_ext2_kernel.cmi :
+./format_ext2_kernel.cmo : utils.cmi glob.cmi fnmatch.cmi ext2fs.cmi ./format_ext2_kernel.cmi
+./format_ext2_kernel.cmx : utils.cmx glob.cmx fnmatch.cmx ext2fs.cmx ./format_ext2_kernel.cmi
+./glob.cmi :
+./glob.cmo : ./glob.cmi
+./glob.cmx : ./glob.cmi
+./librpm.cmi :
+./librpm.cmo : ./librpm.cmi
+./librpm.cmx : ./librpm.cmi
+./mode_build.cmi : types.cmo
+./mode_build.cmo : utils.cmi types.cmo realpath.cmi package_handler.cmi glob.cmi format_ext2_kernel.cmi format_ext2_initrd.cmi format_ext2.cmi format_chroot.cmi fnmatch.cmi ./mode_build.cmi
+./mode_build.cmx : utils.cmx types.cmx realpath.cmx package_handler.cmx glob.cmx format_ext2_kernel.cmx format_ext2_initrd.cmx format_ext2.cmx format_chroot.cmx fnmatch.cmx ./mode_build.cmi
+./mode_prepare.cmi : types.cmo
+./mode_prepare.cmo : utils.cmi package_handler.cmi ./mode_prepare.cmi
+./mode_prepare.cmx : utils.cmx package_handler.cmx ./mode_prepare.cmi
+./os_release.cmi :
+./os_release.cmo : utils.cmi ./os_release.cmi
+./os_release.cmx : utils.cmx ./os_release.cmi
+./package_handler.cmi :
+./package_handler.cmo : utils.cmi ./package_handler.cmi
+./package_handler.cmx : utils.cmx ./package_handler.cmi
+./ph_dpkg.cmi :
+./ph_dpkg.cmo : utils.cmi package_handler.cmi os_release.cmi config.cmo ./ph_dpkg.cmi
+./ph_dpkg.cmx : utils.cmx package_handler.cmx os_release.cmx config.cmx ./ph_dpkg.cmi
+./ph_pacman.cmi :
+./ph_pacman.cmo : utils.cmi package_handler.cmi os_release.cmi config.cmo ./ph_pacman.cmi
+./ph_pacman.cmx : utils.cmx package_handler.cmx os_release.cmx config.cmx ./ph_pacman.cmi
+./ph_rpm.cmi :
+./ph_rpm.cmo : utils.cmi package_handler.cmi os_release.cmi librpm.cmi config.cmo ./ph_rpm.cmi
+./ph_rpm.cmx : utils.cmx package_handler.cmx os_release.cmx librpm.cmx config.cmx ./ph_rpm.cmi
+./realpath.cmi :
+./realpath.cmo : ./realpath.cmi
+./realpath.cmx : ./realpath.cmi
+./supermin.cmo : utils.cmi types.cmo package_handler.cmi mode_prepare.cmi mode_build.cmi librpm.cmi config.cmo
+./supermin.cmx : utils.cmx types.cmx package_handler.cmx mode_prepare.cmx mode_build.cmx librpm.cmx config.cmx
+./types.cmo :
+./types.cmx :
+./utils.cmi :
+./utils.cmo : ./utils.cmi
+./utils.cmx : ./utils.cmi
+config.cmo :
+config.cmx :
