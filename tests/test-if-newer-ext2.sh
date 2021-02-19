@@ -1,6 +1,6 @@
 #!/bin/bash -
 # supermin
-# (C) Copyright 2009-2014 Red Hat Inc.
+# (C) Copyright 2009-2020 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 set -e
+set -x
 
 # XXX Hack for Arch.
 if [ -f /etc/arch-release ]; then
@@ -27,19 +28,34 @@ tmpdir=`mktemp -d`
 
 d1=$tmpdir/d1
 d2=$tmpdir/d2
-d3=$tmpdir/d3
-
-test "$USE_NETWORK" = 1 || USE_INSTALLED=--use-installed
 
 # We assume 'bash' is a package everywhere.
-../src/supermin -v --prepare $USE_INSTALLED bash -o $d1
+../src/supermin -v --prepare --use-installed bash -o $d1
 
-arch="$(uname -m)"
+run_supermin ()
+{
+  ../src/supermin -v --build -f ext2 --if-newer $d1 -o $d2
+}
 
-# Check all supermin-helper formats work.
-../src/supermin -v --build -f chroot --host-cpu $arch $d1 -o $d2
-../src/supermin -v --build -f ext2 --host-cpu $arch $d1 -o $d3
+# Build the appliance the first time, which will work.
+run_supermin
 
-# Need to chmod $d2 since rm -r can't remove unwritable directories.
-chmod -R +w $d2 ||:
+# No changes, hence nothing to do.
+run_supermin > test-if-newer-ext2.out
+cat test-if-newer-ext2.out
+grep 'if-newer: output does not need rebuilding' test-if-newer-ext2.out
+rm test-if-newer-ext2.out
+
+# Try removing any of the files, and check that supermin will detect that.
+ext2_files="kernel initrd root"
+for ext2_file in $ext2_files
+do
+  rm $d2/$ext2_file
+  run_supermin
+  for ext2_file in $ext2_files
+  do
+    test -e $d2/$ext2_file
+  done
+done
+
 rm -rf $tmpdir ||:

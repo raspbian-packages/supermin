@@ -32,5 +32,10 @@ override_dh_auto_clean:
 override_dh_dwz:
 	dh_dwz -X/usr/bin/supermin
 
+# Don't destroy supermin binary if it has been produced by the OCaml
+# bytecode compiler
+override_dh_strip override_dh_strip_nondeterminism:
+	-which ocamlc.opt > /dev/null && $(patsubst override_%,%,$@)
+
 %:
 	dh $@ --with=ocaml

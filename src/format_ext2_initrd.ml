@@ -17,6 +17,7 @@
  *)
 
 open Unix
+open Unix.LargeFile
 open Printf
 
 open Utils
@@ -44,6 +45,7 @@ let kmods = [
   "crc*.ko*";
   "libcrc*.ko*";
   "ibmvscsic.ko*";
+  "ibmvscsi.ko*";
   "libnvdimm.ko*";
   "nd_pmem.ko*";
   "nd_btt.ko*";

@@ -17,6 +17,7 @@
  *)
 
 open Unix
+open Unix.LargeFile
 open Printf
 
 open Utils
@@ -58,6 +59,10 @@ and string_of_file_content = function
   | Hostfiles -> "hostfiles"
   | Excludefiles -> "excludefiles"
   | Empty -> "empty"
+
+let kernel_filename = "kernel"
+and appliance_filename = "root"
+and initrd_filename = "initrd"
 
 let rec build debug
     (copy_kernel, format, host_cpu,
@@ -223,9 +228,9 @@ let rec build debug
     Format_chroot.build_chroot debug files outputdir packagelist_file
 
   | Ext2 ->
-    let kernel = outputdir // "kernel"
-    and appliance = outputdir // "root"
-    and initrd = outputdir // "initrd" in
+    let kernel = outputdir // kernel_filename
+    and appliance = outputdir // appliance_filename
+    and initrd = outputdir // initrd_filename in
     let kernel_version, modpath =
       Format_ext2_kernel.build_kernel debug host_cpu copy_kernel kernel in
     Format_ext2.build_ext2 debug basedir files modpath kernel_version
@@ -458,3 +463,15 @@ and munge files =
   let files = loop files in
 
   files
+
+and get_outputs
+    (copy_kernel, format, host_cpu,
+     packager_config, tmpdir, use_installed, size,
+     include_packagelist)
+    inputs =
+  match format with
+  | Chroot ->
+    (* The content for chroot depends on the packages. *)
+    []
+  | Ext2 ->
+    [kernel_filename; appliance_filename; initrd_filename]

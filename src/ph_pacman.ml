@@ -17,6 +17,7 @@
  *)
 
 open Unix
+open Unix.LargeFile
 open Printf
 
 open Utils
@@ -36,7 +37,7 @@ type pac_t = {
   name : string;
   epoch : int;
   version : string;
-  release : int;
+  release : string;
   arch : string;
 }
 
@@ -81,7 +82,7 @@ let pacman_package_of_string str =
           with Not_found -> 0, evr in
         let version, release =
           match string_split "-" vr with
-          | [ v; r ] -> v, int_of_string r
+          | [ v; r ] -> v, r
           | _ -> assert false in
         epoch, version, release
       with
@@ -117,9 +118,9 @@ let pacman_package_of_string str =
 let pacman_package_to_string pkg =
   let pac = pac_of_pkg pkg in
   if pac.epoch = 0 then
-    sprintf "%s-%s-%d.%s" pac.name pac.version pac.release pac.arch
+    sprintf "%s-%s-%s.%s" pac.name pac.version pac.release pac.arch
   else
-    sprintf "%s-%d:%s-%d.%s"
+    sprintf "%s-%d:%s-%s.%s"
       pac.name pac.epoch pac.version pac.release pac.arch
 
 let pacman_package_name pkg =
@@ -170,25 +171,28 @@ let pacman_download_all_packages pkgs dir =
   (* Because we reuse the same temporary download directory (tdir), this
    * only downloads each package once, even though each call to pacman will
    * download dependent packages as well.
+   *
+   * CacheDir directives must be filtered out to force pacman downloads.
    *)
-  List.iter (
-    fun name ->
-      let cmd = sprintf "\
-        set -e
-        umask 0000
-        cd %s
-        mkdir -p var/lib/pacman
-        %s %s%s -Syw --noconfirm --cachedir=$(pwd) --root=$(pwd) %s
-      "
-        (quote tdir)
-        Config.fakeroot Config.pacman
-        (match !settings.packager_config with
-         | None -> ""
-         | Some filename -> " --config " ^ (quote filename))
-        (quoted_list names) in
-      if !settings.debug >= 2 then printf "%s" cmd;
-      if Sys.command cmd <> 0 then (
-        (* The package may not be in the main repos, check the AUR. *)
+  let cmd = sprintf "\
+    set -e
+    umask 0000
+    cd %s
+    mkdir -p var/lib/pacman
+    pacman-conf | grep -v CacheDir > tmp.conf
+    %s %s%s -Syw --noconfirm --cachedir=$(pwd) --root=$(pwd) %s
+  "
+    (quote tdir)
+    Config.fakeroot Config.pacman
+    (match !settings.packager_config with
+     | None -> " --config tmp.conf --dbpath var/lib/pacman"
+     | Some filename -> " --config " ^ (quote filename))
+    (quoted_list names) in
+  if !settings.debug >= 2 then printf "%s" cmd;
+  if Sys.command cmd <> 0 then (
+    (* The package may not be in the main repos, check the AUR. *)
+    List.iter (
+      fun name ->
         let cmd = sprintf "\
           set -e
           umask 0000
@@ -201,22 +205,22 @@ let pacman_download_all_packages pkgs dir =
        "
           (quote tdir)
           (quote ("https://aur.archlinux.org/packages/" ^
-	          (String.sub name 0 2) ^
-	          "/" ^ name ^ "/" ^ name ^ ".tar.gz"))
+	    (String.sub name 0 2) ^
+	    "/" ^ name ^ "/" ^ name ^ ".tar.gz"))
           (quote (name ^ ".tar.gz"))
           (quote name) (* cd *)
           Config.makepkg
           (quote name) (quote tdir) (* mv *) in
         if !settings.debug >= 2 then printf "%s" cmd;
         run_command cmd
-      );
-  ) names;
+    ) names;
+  );
 
   (* Unpack the downloaded packages. *)
   let cmd =
     sprintf "
       umask 0000
-      for f in %s/*.pkg.tar.xz; do tar -xf \"$f\" -C %s; done
+      for f in %s/*.pkg.tar.*; do tar -xf \"$f\" -C %s; done
     "
       (quote tdir) (quote dir) in
   if !settings.debug >= 2 then printf "%s" cmd;

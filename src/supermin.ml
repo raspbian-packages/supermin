@@ -17,6 +17,7 @@
  *)
 
 open Unix
+open Unix.LargeFile
 open Printf
 
 open Types
@@ -234,18 +235,20 @@ appliance automatically.
    * does not exist, or if the dates of either input files or package
    * database is newer, then we rebuild.  Else we can just exit.
    *)
-  if if_newer then (
+  if mode = Build && if_newer then (
     try
-      let odate = (lstat outputdir).st_mtime in
+      let outputs = Mode_build.get_outputs args inputs in
+      let outputs = List.map ((//) outputdir) outputs in
+      let odates = List.map (fun d -> (lstat d).st_mtime) (outputdir :: outputs) in
       let idates = List.map (fun d -> (lstat d).st_mtime) inputs in
       let pdate = (get_package_handler ()).ph_get_package_database_mtime () in
-      if List.for_all (fun idate -> idate < odate) (pdate :: idates) then (
+      if List.for_all (fun idate -> List.for_all (fun odate -> idate < odate) odates) (pdate :: idates) then (
         if debug >= 1 then
           printf "supermin: if-newer: output does not need rebuilding\n%!";
         exit 0
       )
     with
-      Unix_error _ -> () (* just continue *)
+      Unix_error (ENOENT, _, _) -> () (* just continue *)
   );
 
   (* Create the output directory nearly atomically. *)
