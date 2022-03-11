@@ -1,4 +1,4 @@
-supermin (5.2.1-6+rpi1) bookworm-staging; urgency=medium
+supermin (5.2.2-1+rpi1) bookworm-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
@@ -9,7 +9,15 @@ supermin (5.2.1-6+rpi1) bookworm-staging; urgency=medium
   * Disable testsuite.
   * Fix clean target.
 
- -- Raspbian forward porter <root@raspbian.org>  Thu, 09 Sep 2021 17:14:17 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Fri, 11 Mar 2022 13:11:27 +0000
+
+supermin (5.2.2-1) unstable; urgency=medium
+
+  * New upstream version 5.2.2
+  * Add test-only Build-dependency for libguestfs-tools
+  * Drop patch that has been integrated upstream
+
+ -- Hilko Bengen <bengen@debian.org>  Sat, 05 Mar 2022 10:14:07 +0100
 
 supermin (5.2.1-6) unstable; urgency=medium
 

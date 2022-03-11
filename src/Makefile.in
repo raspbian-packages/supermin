@@ -960,6 +960,7 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -1059,8 +1060,8 @@ SOURCES_C = \
 	realpath-c.c
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.o supermin format-ext2-init-bin.h
-man_MANS = \
-	supermin.1
+@HAVE_PERLDOC_TRUE@man_MANS = \
+@HAVE_PERLDOC_TRUE@	supermin.1
 
 supermin_SOURCES = $(SOURCES_C)
 nodist_supermin_SOURCES = format-ext2-init-bin.h
