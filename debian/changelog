@@ -1,4 +1,4 @@
-supermin (5.2.2-1+rpi1) bookworm-staging; urgency=medium
+supermin (5.2.2-3+rpi1) trixie-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
@@ -9,7 +9,25 @@ supermin (5.2.2-1+rpi1) bookworm-staging; urgency=medium
   * Disable testsuite.
   * Fix clean target.
 
- -- Raspbian forward porter <root@raspbian.org>  Fri, 11 Mar 2022 13:11:27 +0000
+ -- Raspbian forward porter <root@raspbian.org>  Thu, 18 Jan 2024 18:13:32 +0000
+
+supermin (5.2.2-3) unstable; urgency=medium
+
+  * Don't use broken musl-gcc on mips64el (see #1050429)
+  * Fix libext2fs-dev build-depends
+
+ -- Hilko Bengen <bengen@debian.org>  Mon, 08 Jan 2024 10:42:33 +0100
+
+supermin (5.2.2-2) unstable; urgency=medium
+
+  * Add -rpi kernel fr armel
+  * Add loong64-specific dependencies.
+    Thanks to Dandan Zhang (Closes: #1060136)
+  * Use musl-gcc on more architectures
+  * Ensure that package can be rebuilt from source after successful build
+    (Closes: #1048907)
+
+ -- Hilko Bengen <bengen@debian.org>  Sun, 07 Jan 2024 23:25:08 +0100
 
 supermin (5.2.2-1) unstable; urgency=medium
 
