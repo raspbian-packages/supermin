@@ -1,0 +1,49 @@
+From: Hilko Bengen <bengen@debian.org>
+Date: Tue, 12 Mar 2024 00:05:54 +0100
+Subject: Resolve virtual packages in dependencies
+
+---
+ src/ph_dpkg.ml | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/src/ph_dpkg.ml b/src/ph_dpkg.ml
+index 6d4fce1..d284a92 100644
+--- a/src/ph_dpkg.ml
++++ b/src/ph_dpkg.ml
+@@ -57,15 +57,31 @@ let dpkg_packages = Hashtbl.create 13
+ let dpkg_package_of_string str =
+   if Hashtbl.length dpkg_packages == 0 then (
+     let cmd =
+-      sprintf "%s --show --showformat='${Package} ${Version} ${Architecture} ${Status}\\n'"
++      sprintf "%s --show --showformat='${Package} ${Version} ${Architecture} ${Status}; ${Provides}\\n'"
+         Config.dpkg_query in
+     let lines = run_command_get_lines cmd in
+     List.iter (
+       fun line ->
+-        match string_split " " line with
+-        | [ name; version; arch; _; _; "installed" ] ->
+-          let dpkg = { name = name; version = version; arch = arch } in
+-          Hashtbl.add dpkg_packages name dpkg
++        match string_split "; " line with
++        | [ install; provides ] -> (
++          match string_split " " install with
++          | [ name; version; arch; _; _; "installed" ] ->
++             let dpkg = { name = name; version = version; arch = arch } in
++             Hashtbl.add dpkg_packages name dpkg;
++             let virt = string_split ", " provides in
++             (* Also record virtual packages so that dependencies are
++                resolved to the actual pacakge. Individual entries
++                produced by dpkg-query's ${Provides} field are
++                formatted as "name (= version)"; we only care about
++                the name. *)
++             List.iter (
++               fun item ->
++                 match string_split " " item with
++                 | name :: _  -> Hashtbl.add dpkg_packages name dpkg;
++                 | _ -> ();
++               ) virt
++          | _ -> ();
++        )
+         | _ -> ();
+     ) lines
+   );
