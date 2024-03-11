@@ -12,10 +12,10 @@ supermin - Tool for creating and building supermin appliances
 
 =head1 EXAMPLE
 
- supermin --prepare bash util-linux -o /tmp/supermin.d
+ supermin --prepare bash mount util-linux coreutils -o /tmp/supermin.d
  
  cat > init <<EOF
- #!/bin/sh
+ #!/bin/bash
  mount -t proc /proc /proc
  mount -t sysfs /sys /sys
  echo Welcome to supermin
@@ -27,7 +27,8 @@ supermin - Tool for creating and building supermin appliances
  
  supermin --build /tmp/supermin.d -f ext2 -o /tmp/appliance.d
  
- qemu-kvm -nodefaults -nographic \
+ qemu-system-$ARCH \
+          -nodefaults -nographic \
           -kernel /tmp/appliance.d/kernel \
           -initrd /tmp/appliance.d/initrd \
           -hda /tmp/appliance.d/root \
