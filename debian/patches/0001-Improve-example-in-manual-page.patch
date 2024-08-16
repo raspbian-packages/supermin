@@ -1,0 +1,35 @@
+From: Hilko Bengen <bengen@debian.org>
+Date: Tue, 12 Mar 2024 00:05:45 +0100
+Subject: Improve example in manual page
+
+---
+ src/supermin.pod | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/supermin.pod b/src/supermin.pod
+index e3698eb..4d4a2c9 100644
+--- a/src/supermin.pod
++++ b/src/supermin.pod
+@@ -12,10 +12,10 @@ supermin - Tool for creating and building supermin appliances
+ 
+ =head1 EXAMPLE
+ 
+- supermin --prepare bash util-linux -o /tmp/supermin.d
++ supermin --prepare bash mount util-linux coreutils -o /tmp/supermin.d
+  
+  cat > init <<EOF
+- #!/bin/sh
++ #!/bin/bash
+  mount -t proc /proc /proc
+  mount -t sysfs /sys /sys
+  echo Welcome to supermin
+@@ -27,7 +27,8 @@ supermin - Tool for creating and building supermin appliances
+  
+  supermin --build /tmp/supermin.d -f ext2 -o /tmp/appliance.d
+  
+- qemu-kvm -nodefaults -nographic \
++ qemu-system-$ARCH \
++          -nodefaults -nographic \
+           -kernel /tmp/appliance.d/kernel \
+           -initrd /tmp/appliance.d/initrd \
+           -hda /tmp/appliance.d/root \
