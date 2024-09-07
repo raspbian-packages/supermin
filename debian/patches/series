@@ -1,2 +1,3 @@
 0001-Improve-example-in-manual-page.patch
 0002-Resolve-virtual-packages-in-dependencies.patch
+0003-Fix-build-with-OCaml-5.x.patch

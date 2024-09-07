@@ -1,0 +1,53 @@
+From: Stephane Glondu <glondu@debian.org>
+Date: Tue, 18 Jun 2024 06:13:52 +0200
+Subject: Fix build with OCaml 5.x
+
+---
+ src/mode_build.ml | 4 ++--
+ src/utils.ml      | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/mode_build.ml b/src/mode_build.ml
+index ff7733e..0edf9e5 100644
+--- a/src/mode_build.ml
++++ b/src/mode_build.ml
+@@ -123,7 +123,7 @@ let rec build debug
+       (PackageSet.cardinal packages);
+     if debug >= 2 then (
+       List.iter (printf "  - %s\n") pretty_packages;
+-      flush Pervasives.stdout
++      flush Stdlib.stdout
+     )
+   );
+ 
+@@ -207,7 +207,7 @@ let rec build debug
+       (List.length files);
+     if debug >= 2 then (
+       List.iter (fun { ft_path = path } -> printf "  - %s\n" path) files;
+-      flush Pervasives.stdout
++      flush Stdlib.stdout
+     )
+   );
+ 
+diff --git a/src/utils.ml b/src/utils.ml
+index f5990ef..5b0aeb7 100644
+--- a/src/utils.ml
++++ b/src/utils.ml
+@@ -40,7 +40,7 @@ let dir_exists name =
+   try (stat name).st_kind = S_DIR
+   with Unix_error _ -> false
+ 
+-let uniq ?(cmp = Pervasives.compare) xs =
++let uniq ?(cmp = Stdlib.compare) xs =
+   let rec loop acc = function
+     | [] -> acc
+     | [x] -> x :: acc
+@@ -51,7 +51,7 @@ let uniq ?(cmp = Pervasives.compare) xs =
+   in
+   List.rev (loop [] xs)
+ 
+-let sort_uniq ?(cmp = Pervasives.compare) xs =
++let sort_uniq ?(cmp = Stdlib.compare) xs =
+   let xs = List.sort cmp xs in
+   let xs = uniq ~cmp xs in
+   xs
