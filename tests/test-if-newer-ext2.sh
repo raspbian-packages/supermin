@@ -17,6 +17,12 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 set -e
+
+if [ -n "$SKIP_TEST_IF_NEWER_EXT2" ]; then
+    echo "$0: test skipped because SKIP_TEST_IF_NEWER_EXT2 is set."
+    exit 77
+fi
+
 set -x
 
 # XXX Hack for Arch.
