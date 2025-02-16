@@ -1,0 +1,4 @@
+0001-Improve-example-in-manual-page.patch
+0002-Resolve-virtual-packages-in-dependencies.patch
+0003-Fix-build-with-OCaml-5.x.patch
+0004-Make-tests-that-need-a-kernel-image-skippable.patch
