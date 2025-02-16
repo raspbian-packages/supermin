@@ -18,6 +18,11 @@
 
 set -e
 
+if [ -n "$SKIP_TEST_BUILD_BASH" ]; then
+    echo "$0: test skipped because SKIP_TEST_BUILD_BASH is set."
+    exit 77
+fi
+
 # XXX Hack for Arch.
 if [ -f /etc/arch-release ]; then
     export SUPERMIN_KERNEL=/boot/vmlinuz-linux
