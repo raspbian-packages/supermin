@@ -3,11 +3,11 @@ Section: admin
 Priority: optional
 Maintainer: Debian Libvirt Maintainers <pkg-libvirt-maintainers@lists.alioth.debian.org>
 Uploaders: Hilko Bengen <bengen@debian.org>
-Build-Depends: debhelper (>= 12),
+Build-Depends: debhelper-compat (= 13),
  libc-dev-bin,
- gawk, pkg-config,
+ gawk, pkgconf,
  apt,
- ocaml-nox, ocaml-findlib, dh-ocaml,
+ ocaml, ocaml-findlib, dh-ocaml,
  perl,
  comerr-dev, libext2fs-dev,
  cpio,
@@ -15,6 +15,7 @@ Build-Depends: debhelper (>= 12),
  musl-tools [amd64 arm64 armel armhf i386 ppc64el riscv64 s390x],
  augeas-tools, libhivex-bin,
  libguestfs-tools <!nocheck>,
+ zstd,
  linux-image-alpha-generic [alpha] <!nocheck>,
  linux-image-rpi [armel] <!nocheck> | linux-image-marvell [armel] <!nocheck>,
  linux-image-arm64 [arm64] <!nocheck>,
@@ -27,11 +28,10 @@ Build-Depends: debhelper (>= 12),
  linux-image-powerpc64le [ppc64el] <!nocheck>,
  linux-image-sparc64 [sparc sparc64] <!nocheck>,
  linux-image-amd64 [amd64 x32] <!nocheck>,
- linux-image-686-pae [i386] <!nocheck> | linux-image-586 [i386] <!nocheck> | linux-image-486 [i386] <!nocheck>,
  linux-image-riscv64 [riscv64] <!nocheck>,
  linux-image-itanium [ia64] <!nocheck> | linux-image-mckinley [ia64] <!nocheck>,
  linux-image-loong64 [loong64] <!nocheck>,
-Standards-Version: 4.3.0
+Standards-Version: 4.7.2
 Homepage: http://people.redhat.com/~rjones/supermin/
 Vcs-Git: https://salsa.debian.org/libvirt-team/supermin.git
 Vcs-Browser: https://salsa.debian.org/libvirt-team/supermin
@@ -39,7 +39,7 @@ Vcs-Browser: https://salsa.debian.org/libvirt-team/supermin
 Package: supermin
 Architecture: linux-any
 Depends: ${shlibs:Depends}, ${misc:Depends},
- apt, cpio, e2fsprogs,
+ apt, cpio, e2fsprogs, zstd,
 Recommends:
  linux-image-alpha-generic [alpha],
  linux-image-rpi [armel] | linux-image-marvell [armel],

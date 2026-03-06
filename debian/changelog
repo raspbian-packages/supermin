@@ -1,4 +1,4 @@
-supermin (5.2.2-5+rpi1) trixie-staging; urgency=medium
+supermin (5.2.2-7.1+rpi1) forky-staging; urgency=medium
 
   [changes brought forward from 5.1.11-1+rpi1 by Peter Michael Green <plugwash@raspbian.org> at Fri, 28 Nov 2014 05:45:23 +0000]
   * Build-depend on raspbian kernel rather than debian armmp kernel.
@@ -9,7 +9,31 @@ supermin (5.2.2-5+rpi1) trixie-staging; urgency=medium
   * Disable testsuite.
   * Fix clean target.
 
- -- Raspbian forward porter <root@raspbian.org>  Sat, 07 Sep 2024 10:13:31 +0000
+ -- Peter Michael Green <plugwash@raspbian.org>  Fri, 06 Mar 2026 03:42:36 +0000
+
+supermin (5.2.2-7.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Build-Depend on ocaml instead of transitional ocaml-nox (Closes:
+    #1125114)
+
+ -- Stéphane Glondu <glondu@debian.org>  Thu, 22 Jan 2026 09:09:29 +0100
+
+supermin (5.2.2-7) unstable; urgency=medium
+
+  * Bump Standards-Version, Debhelper compat level
+  * Add upstream patch to support zstd-compressed kernel modules
+    (Closes: #1082404)
+  * Add Lintian override
+
+ -- Hilko Bengen <bengen@debian.org>  Wed, 12 Nov 2025 22:40:38 +0100
+
+supermin (5.2.2-6) unstable; urgency=medium
+
+  * Remove kernel build-dependency for i386
+  * Update build-dependencies
+
+ -- Hilko Bengen <bengen@debian.org>  Sun, 16 Feb 2025 16:15:42 +0100
 
 supermin (5.2.2-5) unstable; urgency=medium
 

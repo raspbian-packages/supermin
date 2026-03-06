@@ -3,6 +3,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+include /usr/share/dpkg/architecture.mk
+
 cfgflags =
 cfgflags += CPIO=/bin/cpio
 cfgflags += MKE2FS=/sbin/mke2fs
@@ -24,7 +26,9 @@ override_dh_auto_build:
 	dh_auto_build
 
 override_dh_auto_test:
-	#dh_auto_test -- SKIP_TEST_EXECSTACK=1
+	#$(info $(DEB_BUILD_ARCH))
+	#dh_auto_test -- SKIP_TEST_EXECSTACK=1 \
+	#	$(if $(filter i386,$(DEB_BUILD_ARCH)),SKIP_TEST_BUILD_BASH=1 SKIP_TEST_IF_NEWER_EXT2=1)
 
 override_dh_gencontrol:
 	dh_gencontrol -- -Vmisc:Built-Using="$(shell dpkg-query -f '$${source:Package} (= $${source:Version}), ' -W $(if $(shell which musl-gcc),musl-tools,libc-dev-bin))"
